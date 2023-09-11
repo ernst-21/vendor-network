@@ -30,11 +30,10 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.5
-          working-directory: ./terraform
 
       - name: Terraform fmt
-        id: fmt
         working-directory: ./terraform
+        id: fmt
         run: terraform fmt -check
         continue-on-error: true
 
@@ -67,7 +66,6 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          working-directory: ./terraform
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
